@@ -1,0 +1,40 @@
+nginx:
+  image: "marcopgordillo/nginx:latest"
+  ports:
+    - "8082:80"
+  links:
+    - phpfpm
+  volumes:
+    - ./logs/access.log:/var/logs/nginx/myapp-access.log
+    - ./logs/error.log:/var/logs/nginx/myapp-error.log
+    - ./nginx/app.conf:/etc/nginx/conf.d/app.conf
+    - ./public:/usr/share/nginx/html
+phpfpm:
+  image: "marcopgordillo/php-fpm:latest"
+  ports:
+    - "9000:9000"
+  volumes:
+    - ./public:/usr/share/nginx/html
+mysql:
+  image: "yobasystems/alpine-mariadb"
+  ports:
+    - "3306:3306"
+  volumes:
+    - ./db-data:/var/lib/mysql
+  environment:
+    - MYSQL_DATABASE=wordpressdb
+    - MYSQL_USER=wordpress
+    - MYSQL_PASSWORD=wordpress
+    - MYSQL_ROOT_PASSWORD=mariadb_root
+phpmyadmin:
+  image: "phpmyadmin/phpmyadmin"
+  restart: always
+  ports:
+    - "8081:80"
+  links:
+    - mysql:mysql
+  environment:
+    MYSQL_USERNAME: root
+    MYSQL_ROOT_PASSWORD: hakase-labs123
+    PMA_HOST: mysql
+
