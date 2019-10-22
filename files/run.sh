@@ -18,6 +18,8 @@ else
 	chown -R mysql:mysql /run/mysqld
 fi
 
+sed -i "s/\[mysqld\]/[mysqld]\ninnodb_data_file_path = ibdata1:12M:autoextend/" /etc/my.cnf.d/mariadb-server.cnf
+
 if [ -d /var/lib/mysql/mysql ]; then
 	echo "[i] MySQL directory already present, skipping creation"
 	chown -R mysql:mysql /var/lib/mysql
@@ -27,7 +29,6 @@ else
 	chown -R mysql:mysql /var/lib/mysql
 
 	mysql_install_db --user=mysql --ldata=/var/lib/mysql > /dev/null
-	echo "hello world!"
 
 	if [ "$MYSQL_ROOT_PASSWORD" = "" ]; then
 		MYSQL_ROOT_PASSWORD=`pwgen 16 1`
