@@ -27,6 +27,7 @@ else
 	chown -R mysql:mysql /var/lib/mysql
 
 	mysql_install_db --user=mysql --ldata=/var/lib/mysql > /dev/null
+	echo "hello world!"
 
 	if [ "$MYSQL_ROOT_PASSWORD" = "" ]; then
 		MYSQL_ROOT_PASSWORD=`pwgen 16 1`
