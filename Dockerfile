@@ -13,8 +13,7 @@ RUN apk update && \
   #echo 'php_flag[display_errors] = on' >> /etc/php7/php-fpm.d/www.conf && \
   #echo 'php_admin_value[error_log] = /var/log/fpm-php.www.log' >> /etc/php7/php-fpm.d/www.conf && \
   #echo 'php_admin_flag[log_errors] = on' >> /etc/php7/php-fpm.d/www.conf && \
-  sed -i "s/listen = 127.0.0.1:9000/listen = 9000/" /etc/php7/php-fpm.d/www.conf && \
-  sed -i "s/doc_root =/doc_root = web/" /etc/php7/php.ini
+  sed -i "s/listen = 127.0.0.1:9000/listen = 9000/" /etc/php7/php-fpm.d/www.conf
 
 #COPY files/nginx.conf /etc/nginx/nginx.conf
 #COPY files/default.conf /etc/nginx/conf.d/default.conf
